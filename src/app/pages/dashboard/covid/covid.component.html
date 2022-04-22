@@ -1,0 +1,80 @@
+<div class="container">
+  <h2>World Wide</h2>
+  <div class="d-flex dashboard-container justify-content-center" *ngIf="listGlobalCovid | async as list">
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Confirmed', className: 'confirmed', icon: 'fa-user', bottomText: list.confirmed }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Recovered', className: 'recovered', icon: 'fa-plus-square', bottomText: list.recovered }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Deaths', className: 'deaths', icon: 'fa-user', bottomText: list.deaths }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Fatality rate', className: 'fatality', icon: 'fa-user', bottomText: list.deaths / list.confirmed * 100 , percent: true }">
+    </ng-container>
+  </div>
+  <div class="pt-4 d-flex">
+    <div style="margin-right: 30px">
+      <h2>Regional</h2>
+    </div>
+    <div class="d-block">
+      <div class="title-combobox">Country & region</div>
+      <div>
+        <select class="combobox">
+          <option>a</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+  <div class="d-flex dashboard-container justify-content-center" *ngIf="listLastestByCountry | async as listByIso">
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Confirmed', className: 'confirmed', icon: 'fa-user', bottomText: listByIso[0].confirmed }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Recovered', className: 'recovered', icon: 'fa-plus-square', bottomText: listByIso[0].recovered }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Deaths', className: 'deaths', icon: 'fa-user', bottomText: listByIso[0].deaths }">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="buttonTmpl"
+                  [ngTemplateOutletContext]="{ label: 'Fatality rate', className: 'fatality', icon: 'fa-user', bottomText: listByIso[0].deaths / listByIso[0].confirmed * 100, percent: true }">
+    </ng-container>
+  </div>
+  <div class="d-flex pt-4">
+    <div style="height: 300px; width: 55%; margin-right: 1%"
+         leaflet
+         [leafletOptions]="options">
+    </div>
+    <div style="width: 44%" *ngIf="listCovidbyCountry | async as list2">
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="list2"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis">
+      </ngx-charts-line-chart>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #buttonTmpl
+             let-label="label"
+             let-className="className"
+             let-icon="icon"
+             let-bottomText="bottomText"
+             let-percent="percent"
+>
+  <div [ngClass]="['dashboard-btn w-25', className ? className : '']">
+    <div class="front-element">
+      <i class="fa {{icon}}"></i>
+      {{label}}
+    </div>
+    <div class="bottom-element">
+      {{bottomText}} <ng-container *ngIf="percent">%</ng-container>
+    </div>
+  </div>
+</ng-template>

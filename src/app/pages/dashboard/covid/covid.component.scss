@@ -1,0 +1,37 @@
+.container {
+  .dashboard-container {
+    .dashboard-btn {
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      margin: 0.5rem;
+      height: 5rem;
+      padding: 15px 20px;
+    }
+
+    .confirmed {
+      background-color: mediumpurple;
+    }
+
+    .recovered {
+      background-color: cadetblue;
+    }
+
+    .deaths {
+      background-color: hotpink;
+    }
+
+    .fatality {
+      background-color: deeppink;
+
+    }
+
+  }
+
+  .combobox{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+  }
+}
+
