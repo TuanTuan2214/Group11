@@ -40,4 +40,15 @@ export class CovidServicesService {
       }
     }));
   }
+
+  listIsoCountry(){
+    const url = `https://countriesnow.space/api/v0.1/countries/iso`
+    return this.HttpService.get(url).pipe(catchError(async err => {
+      if (err.status === 0) {
+        console.log(`Mất kết nối mạng`);
+      } else {
+        console.log((err as any).error);
+      }
+    }));
+  }
 }
